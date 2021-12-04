@@ -10,7 +10,8 @@ namespace AdventOfCode2021
         {
             new Puzzels.Day1(),
             new Puzzels.Day2(),
-            new Puzzels.Day3()
+            new Puzzels.Day3(),
+            new Puzzels.Day4()
         };
         
         public static void Main(string[] args)
