@@ -110,11 +110,9 @@ namespace AdventOfCode2021
                         depth += (d.Value * aim);
                         break;
                     case "down":
-                        //depth += d.Value;
                         aim += d.Value;
                         break;
                     case "up":
-                        //depth -= d.Value;
                         aim -= d.Value;
                         break;
                     default:
@@ -122,8 +120,8 @@ namespace AdventOfCode2021
                         break;
                 }
 
-                //if (depth < 0) depth = 0;
-                //if (hor < 0) hor = 0;
+                if (depth < 0) depth = 0;
+                if (hor < 0) hor = 0;
             }
 
             var answer = hor * depth;
