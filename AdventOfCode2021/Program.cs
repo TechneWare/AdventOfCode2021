@@ -8,23 +8,30 @@ namespace AdventOfCode2021
     {
         public static void Main(string[] args)
         {
-            Day1_part1();
-            Day1_part2();
+            Day1_part1(TestMode: true);
+            Day1_part1(TestMode: false);
+            Day1_part2(TestMode: true);
+            Day1_part2(TestMode: false);
             Console.WriteLine();
 
-            Day2_part1();
-            Day2_part2();
+            Day2_part1(TestMode: true);
+            Day2_part1(TestMode: false);
+            Day2_part2(TestMode: true);
+            Day2_part2(TestMode: false);
             Console.WriteLine();
 
-            Day3_part1();
-            Day3_part2();
+            Day3_part1(TestMode: true);
+            Day3_part1(TestMode: false);
+            Day3_part2(TestMode: true);
+            Day3_part2(TestMode: false);
             Console.WriteLine();
 
             Console.ReadLine();
         }
 
-        public static void Day1_part1()
+        public static void Day1_part1(bool TestMode)
         {
+            Data.SonarInput.TestMode = TestMode;
             var increments = 0;
             var lastValue = Data.SonarInput.Data.First();
             for (int i = 0; i < Data.SonarInput.Data.Count(); i++)
@@ -35,10 +42,11 @@ namespace AdventOfCode2021
                 lastValue = Data.SonarInput.Data[i];
             }
 
-            Console.WriteLine($"Day1 Part1:\tIncrements = {increments}");
+            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay1 Part1:\tIncrements = {increments}");
         }
-        public static void Day1_part2()
+        public static void Day1_part2(bool TestMode)
         {
+            Data.SonarInput.TestMode = TestMode;
             var increments = 0;
             var data = Data.SonarInput.DataWindowed;
 
@@ -51,11 +59,12 @@ namespace AdventOfCode2021
                 lastValue = data[i];
             }
 
-            Console.WriteLine($"Day1 Part2:\tIncrements={increments}");
+            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay1 Part2:\tIncrements={increments}");
         }
 
-        public static void Day2_part1()
+        public static void Day2_part1(bool TestMode)
         {
+            Data.SubPath.TestMode = TestMode;
             var hor = 0;
             var depth = 0;
 
@@ -83,10 +92,11 @@ namespace AdventOfCode2021
 
             var answer = hor * depth;
 
-            Console.WriteLine($"Day2 Parts:\tAnswer = {answer}");
+            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay2 Part1:\tAnswer = {answer}");
         }
-        public static void Day2_part2()
+        public static void Day2_part2(bool TestMode)
         {
+            Data.SubPath.TestMode = TestMode;
             var hor = 0;
             var depth = 0;
             var aim = 0;
@@ -118,11 +128,12 @@ namespace AdventOfCode2021
 
             var answer = hor * depth;
 
-            Console.WriteLine($"DAy2 Part2:\tAnser = {answer}");
+            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay2 Part2:\tAnser = {answer}");
         }
 
-        public static void Day3_part1()
+        public static void Day3_part1(bool TestMode)
         {
+            Data.SubPower.TestMode = TestMode;
             string gama = "";
             string epsilon = "";
 
@@ -144,65 +155,90 @@ namespace AdventOfCode2021
             var e = Convert.ToInt32(epsilon, 2);
 
             var power = g * e;
-            Console.WriteLine($"Day3 Part1:\tPower={power}");
+            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay3 Part1:\tPower={power}");
         }
-        public static void Day3_part2()
+        public static void Day3_part2(bool TestMode)
         {
-            var width = Data.SubPower.PowerData[0].Bits.Length;
-            var oxy = Data.SubPower.PowerData.Clone();
-            var co2 = Data.SubPower.PowerData.Clone();
-
-            for (int i = 0; i < width; i++)
-            {
-                var col = oxy.Select(d => d.Bits[i]).ToList();
-                var ones = col.Count(d => d == 1);
-                var zeros = col.Count(d => d == 0);
-
-                if (ones >= zeros)
-                    foreach (var dp in oxy.Where(d => d.Bits[i] == 0))
-                        if (oxy.Count() > 1) oxy.Remove(dp);
-                else
-                    foreach (var dp1 in oxy.Where(d => d.Bits[i] == 1))
-                        if (oxy.Count() > 1)
-                            oxy.Remove(dp1);
-
-                if (oxy.Count == 1)
-                    break;
-            }
-            var oxyValue = Convert.ToInt32(oxy.First()._value, 2);
-
-            for (int i = 0; i < width; i++)
-            {
-                var col = co2.Select(d => d.Bits[i]).ToList();
-
-                var ones = col.Count(d => d == 1);
-                var zeros = col.Count(d => d == 0);
-
-                if (zeros <= ones)
-                {
-                    var discard = co2.Where(d => d.Bits[i] == 1).ToList();
-                    foreach (var d in discard)
-                        if (co2.Count() > 1)
-                            co2.Remove(d);
-                }
-                else
-                {
-                    var discard = co2.Where(d => d.Bits[i] == 0).ToList();
-                    foreach (var d in discard)
-                        if (co2.Count() > 1)
-                            co2.Remove(d);
-                }
-
-                if (co2.Count() == 1)
-                    break;
-            }
-
-            var co2Value = Convert.ToInt32(co2.First()._value, 2);
+            Data.SubPower.TestMode= TestMode;
+            int oxyValue = GetOxyValue(Data.SubPower.PowerData.Clone());
+            int co2Value = GetCo2Value(Data.SubPower.PowerData.Clone());
 
             var lifeRating = oxyValue * co2Value;
 
-            Console.WriteLine($"Day3 Part2:\tLife Support Rating = {lifeRating}");
+            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay3 Part2:\tLife Support Rating = {lifeRating}");
+        }
 
+        private static int GetOxyValue(List<Data.DataPoint> dataPoints)
+        {
+            int result = 0;
+
+            if (dataPoints != null && dataPoints.Any())
+            {
+                var width = dataPoints.First().Bits.Count();
+                for (int i = 0; i < width; i++)
+                {
+                    var col = dataPoints.Select(d => d.Bits[i]).ToList();
+                    var ones = col.Count(d => d == 1);
+                    var zeros = col.Count(d => d == 0);
+
+                    if (ones >= zeros)
+                    {
+                        var discard = dataPoints.Where(d => d.Bits[i] == 0).ToList();
+                        foreach (var dp in discard)
+                            if (dataPoints.Count() > 1) dataPoints.Remove(dp);
+                    }
+                    else
+                    {
+                        var discard = dataPoints.Where(d => d.Bits[i] == 1).ToList();
+                        foreach (var dp in discard)
+                            if (dataPoints.Count() > 1)
+                                dataPoints.Remove(dp);
+                    }
+
+                    if (dataPoints.Count == 1)
+                        break;
+                }
+
+                result = dataPoints.First().ToInt();
+            }
+
+            return result;
+        }
+        private static int GetCo2Value(List<Data.DataPoint> dataPoints)
+        {
+            int result = 0;
+
+            if (dataPoints != null && dataPoints.Any())
+            {
+                var width = dataPoints.First().Bits.Count();
+                for (int i = 0; i < width; i++)
+                {
+                    var col = dataPoints.Select(d => d.Bits[i]).ToList();
+                    var ones = col.Count(d => d == 1);
+                    var zeros = col.Count(d => d == 0);
+
+                    if (zeros <= ones)
+                    {
+                        var discard = dataPoints.Where(d => d.Bits[i] == 1).ToList();
+                        foreach (var dp in discard)
+                            if (dataPoints.Count() > 1) dataPoints.Remove(dp);
+                    }
+                    else
+                    {
+                        var discard = dataPoints.Where(d => d.Bits[i] == 0).ToList();
+                        foreach (var dp in discard)
+                            if (dataPoints.Count() > 1)
+                                dataPoints.Remove(dp);
+                    }
+
+                    if (dataPoints.Count == 1)
+                        break;
+                }
+
+                result = dataPoints.First().ToInt();
+            }
+
+            return result;
         }
     }
 }
