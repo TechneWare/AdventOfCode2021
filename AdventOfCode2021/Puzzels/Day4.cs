@@ -20,16 +20,16 @@ namespace AdventOfCode2021.Puzzels
             Data.SquidBingo.LoadData(TestMode);
             var draws = Data.SquidBingo.Draws;
             var boards = Data.SquidBingo.Boards;
-            Data.Board winner = null;
+            Data.Board? winner = null;
 
-            foreach (var r in draws)
+            foreach (var num in draws)
             {
-                foreach (var b in boards)
+                foreach (var board in boards)
                 {
-                    b.MarkSquars(r);
-                    if (b.IsWinner)
+                    board.MarkSquars(num);
+                    if (board.IsWinner)
                     {
-                        winner = b;
+                        winner = board;
                         break;
                     }
                 }
@@ -39,7 +39,6 @@ namespace AdventOfCode2021.Puzzels
             }
 
             Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay4 Part1:\tFirst Winning Score = {(winner != null ? winner.Score : "No Winner")}");
-
         }
 
         public override void Part2(bool TestMode)
@@ -47,15 +46,15 @@ namespace AdventOfCode2021.Puzzels
             Data.SquidBingo.LoadData(TestMode);
             var draws = Data.SquidBingo.Draws;
             var boards = Data.SquidBingo.Boards;
-            Data.Board winner = null;
+            Data.Board? winner = null;
 
-            foreach (var r in draws)
-                foreach (var b in boards)
-                    if (!b.IsWinner)
+            foreach (var num in draws)
+                foreach (var board in boards)
+                    if (!board.IsWinner)
                     {
-                        b.MarkSquars(r);
-                        if (b.IsWinner)
-                            winner = b;
+                        board.MarkSquars(num);
+                        if (board.IsWinner)
+                            winner = board;
                     }
 
             Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay4 Part2:\tLast Winning Score = {(winner != null ? winner.Score : "No Winner")}");

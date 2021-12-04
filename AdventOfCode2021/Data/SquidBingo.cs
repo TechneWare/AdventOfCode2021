@@ -64,8 +64,8 @@ namespace AdventOfCode2021.Data
         {
             get
             {
-                return Rows.Any(r => r.All(r => r.IsChosen)) ||
-                       Cols.Any(c => c.All(c => c.IsChosen));
+                return Rows.Any(row => row.All(col => col.IsChosen)) ||
+                       Cols.Any(col => col.All(row => row.IsChosen));
             }
         }
         public int Score
@@ -74,7 +74,7 @@ namespace AdventOfCode2021.Data
             {
                 var result = 0;
 
-                var unmarkedSum = Rows.Sum(r => r.Where(s => !s.IsChosen).Sum(s => s.Value));
+                var unmarkedSum = Rows.Sum(row => row.Where(square => !square.IsChosen).Sum(square => square.Value));
                 result = unmarkedSum * LastDraw;
 
                 return result;
@@ -89,7 +89,7 @@ namespace AdventOfCode2021.Data
                 var cols = new List<List<Square>>();
 
                 for (int i = 0; i < colCount; i++)
-                    cols.Add(Rows.Select(r => r[i]).ToList());
+                    cols.Add(Rows.Select(row => row[i]).ToList());
 
                 return cols;
             }
@@ -102,9 +102,9 @@ namespace AdventOfCode2021.Data
         public void MarkSquars(int draw)
         {
             LastDraw = draw;
-            foreach (var row in Rows.Select(r => r))
+            foreach (var row in Rows.Select(cols => cols))
             {
-                var matches = row.Where(s => s.Value == draw);
+                var matches = row.Where(square => square.Value == draw);
                 if (matches.Any())
                     foreach (var match in matches)
                         match.IsChosen = true;
