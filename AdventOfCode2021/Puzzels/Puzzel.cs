@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2021.Puzzels
 {
-    public class Puzzel : IPuzzel
+    public abstract class Puzzel : IPuzzel
     {
-        public string Name { get; set; }
+        private readonly string name;
+
+        public Puzzel(string Name)
+        {
+            name = Name;
+        }
         public void Run()
         {
-            Console.WriteLine($"\n{Name}");
+            Console.WriteLine($"\n{name}");
 
             foreach (var mode in new bool[] { true, false })
             {
@@ -20,7 +25,7 @@ namespace AdventOfCode2021.Puzzels
             }
         }
 
-        public virtual void Part1(bool TestMode) { }
-        public virtual void Part2(bool TestMode) { }
+        public abstract void Part1(bool TestMode);
+        public abstract void Part2(bool TestMode);
     }
 }

@@ -12,7 +12,9 @@ namespace AdventOfCode2021.Puzzels
     /// </summary>
     public class Day1: Puzzel
     {
-        public Day1(){ Name = "--- Day 1: Sonar Sweep ---"; }
+        public Day1(string Name = "--- Day 1: Sonar Sweep ---") 
+            : base(Name) { }
+
         public override void Part1(bool TestMode)
         {
             Data.SonarInput.TestMode = TestMode;

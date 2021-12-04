@@ -10,9 +10,11 @@ namespace AdventOfCode2021.Puzzels
     /// --- Day 3: Binary Diagnostic ---
     /// <see cref="https://adventofcode.com/2021/day/3"/>
     /// </summary>
-    public class Day3: Puzzel
+    public class Day3 : Puzzel
     {
-        public Day3() { Name = "--- Day 3: Binary Diagnostic ---"; }
+        public Day3(string Name = "--- Day 3: Binary Diagnostic ---")
+            : base(Name) { }
+
         public override void Part1(bool TestMode)
         {
             Data.SubPower.TestMode = TestMode;
