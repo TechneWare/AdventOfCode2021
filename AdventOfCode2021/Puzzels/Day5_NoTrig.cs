@@ -27,7 +27,7 @@ namespace AdventOfCode2021.Puzzels
             linesToCheck.AddRange(Data.HydroThermal.Lines.Where(l => l.IsHorizontal || l.IsVertical));
 
             foreach (var line in linesToCheck)
-                pointsInSystem.AddRange(line.PointsNoTrig(step: 1).ToInt());
+                pointsInSystem.AddRange(line.PointsNoTrig(step: 1));
 
             int OverlapCount = 0;
             var overLapLock = new object();
@@ -54,7 +54,7 @@ namespace AdventOfCode2021.Puzzels
             var linesToCheck = Data.HydroThermal.Lines;
 
             foreach (var line in linesToCheck)
-                pointsInSystem.AddRange(line.PointsNoTrig(step: 1).ToInt());
+                pointsInSystem.AddRange(line.PointsNoTrig(step: 1));
 
             int OverlapCount = 0;
             var overLapLock = new object();
