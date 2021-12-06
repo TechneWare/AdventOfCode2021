@@ -23,6 +23,12 @@
     <None Update="Data\Files\HydrothermalLinesTestInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Files\LanternFishInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Files\LanternFishTestInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Files\SquidBingoInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
