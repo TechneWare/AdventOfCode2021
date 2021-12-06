@@ -18,10 +18,6 @@ namespace AdventOfCode2021.MathTools
         {
             return Vector.Subtract(p, p2);
         }
-        public static PointF Multiply(this PointF p, double value)
-        {
-            return Vector.Multiply(p, value);
-        }
         public static PointF Multiply(this PointF p, float value)
         {
             return Vector.Multiply(p, value);
@@ -30,13 +26,13 @@ namespace AdventOfCode2021.MathTools
         {
             return Vector.Distance(position, target);
         }
-        public static double? Length(this PointF? p)
+        public static float? Length(this PointF? p)
         {
             return Vector.Length(p) * (p.Value.X / Math.Abs(p.Value.X));
         }
         public static float? LengthF(this PointF? p)
         {
-            return (float)Vector.Length(p);
+            return Vector.Length(p);
         }
         public static PointF? Normalize(this PointF? p)
         {
@@ -44,13 +40,9 @@ namespace AdventOfCode2021.MathTools
         }
         public static PointF? Normalize(this PointF p)
         {
-            return (PointF)Vector.Normalize(p);
+            return Vector.Normalize(p);
         }
-        public static PointF ToRotatedEndpoint(this PointF startPoint, PointF forwardVector, double angle, double distance)
-        {
-            return Vector.GetRotatedEndpoint(startPoint, forwardVector, angle, distance);
-        }
-        public static PointF ToRotatedEndpoint(PointF startPoint, PointF forwardVector, float angle, float distance)
+        public static PointF ToRotatedEndpoint(this PointF startPoint, PointF forwardVector, float angle, float distance)
         {
             return Vector.GetRotatedEndpoint(startPoint, forwardVector, angle, distance);
         }
@@ -58,18 +50,18 @@ namespace AdventOfCode2021.MathTools
         {
             return Vector.Intersection(line1, line2);
         }
-        public static List<PointF> Points(this Line line, double step)
+        public static IEnumerable<PointF> Points(this Line line, float step)
         {
             var result = new List<PointF>() { line.Start };
 
             var len = line.Length();
             var slope = line.Slope();
 
-            var IsVertical = Math.Abs(slope) == double.PositiveInfinity;
+            var IsVertical = Math.Abs(slope) == float.PositiveInfinity;
             if (IsVertical)
             {
                 len = line.End.Y - line.Start.Y;
-                if (double.IsNegativeInfinity(slope))
+                if (float.IsNegativeInfinity(slope))
                     step = -step;
             }
             else
@@ -86,83 +78,71 @@ namespace AdventOfCode2021.MathTools
 
             return result;
         }
-        public static List<PointF> PointsNoTrig(this Line line, double step)
+        public static IEnumerable<PointF> PointsNoTrig(this Line line, float step)
         {
             var result = new List<PointF>();
             
             var distance = line.End.DistanceTo(line.Start);
             var xStep = Math.Abs(step) * (distance.Value.X / Math.Abs(distance.Value.X));
             var yStep = Math.Abs(step) * (distance.Value.Y / Math.Abs(distance.Value.Y));
-            var xPos = (double)line.Start.X;
-            var yPos = (double)line.Start.Y;
+            var xPos = line.Start.X;
+            var yPos = line.Start.Y;
 
-            if (xStep is double.NaN) xStep = 0;
-            if (yStep is double.NaN) yStep = 0;
+            if (xStep is float.NaN) xStep = 0;
+            if (yStep is float.NaN) yStep = 0;
 
             while (xPos != line.End.X ||
                    yPos != line.End.Y)
             {
-                result.Add(new PointF((float)xPos, (float)yPos));
+                result.Add(new PointF(xPos, yPos));
                 xPos += xStep;
                 yPos += yStep;
             }
 
-            result.Add(new PointF((float)xPos, (float)yPos));
-
-            if(result.Last().X != line.End.X || result.Last().Y != line.End.Y)
-                Debugger.Break();
+            result.Add(new PointF(xPos, yPos));
 
             return result;
         }
-        public static List<PointF> ToInt(this List<PointF> pointFs)
+        public static IEnumerable<PointF> ToInt(this IEnumerable<PointF> pointFs)
         {
-            var result = new List<PointF>();
-            var intPoints = pointFs.Select(p => new PointF((int)Math.Round(p.X, 0, MidpointRounding.AwayFromZero), (int)Math.Round(p.Y, 0, MidpointRounding.AwayFromZero))).ToList();
-            result = intPoints.Distinct().ToList();
+            var intPoints = pointFs.Select(p => new PointF((int)Math.Round(p.X, 0, MidpointRounding.AwayFromZero), (int)Math.Round(p.Y, 0, MidpointRounding.AwayFromZero)));
+            var result = intPoints.Distinct();
 
             return result;
         }
-        public static double Length(this Line line)
+        public static float Length(this Line line)
         {
             var len = line.End.DistanceTo(line.Start).Length();
-            double result = len.HasValue ? (double)len : 0;
+            var result = len.HasValue ? (float)len : 0f;
 
             return result;
         }
-        public static PointF PointSlope(this Line line, double distance)
+        public static PointF PointSlope(this Line line, float distance)
         {
             return Vector.PointSlope(line.Start, line.Slope(), distance);
         }
-        public static double Slope(this Line line)
+        public static float Slope(this Line line)
         {
             return Vector.Slope(line);
         }
-        public static double Angle(this PointF vector)
+        public static float Angle(this PointF vector)
         {
             return Vector.Angle(vector);
         }
-        public static double Scale(this double oldValue, double oldMin, double oldMax, double newMin, double newMax)
+        public static float Scale(this float oldValue, float oldMin, float oldMax, float newMin, float newMax)
         {
-            double newRange = newMax - newMin;
-            double oldRange = oldMax - oldMin;
+            float newRange = newMax - newMin;
+            float oldRange = oldMax - oldMin;
             return (((oldValue - oldMin) * newRange) / oldRange) + newMin;
         }
-        public static float Scale(float oldValue, float oldMin, float oldMax, float newMin, float newMax)
+        public static float Clamp(this float value, float minValue, float maxValue)
         {
-            return (float)Scale((double)oldValue, (double)oldMin, (double)oldMax, (double)newMin, (double)newMax);
-        }
-        public static double Clamp(this double value, double minValue, double maxValue)
-        {
-            double result = value;
+            float result = value;
 
             if (value < minValue) result = minValue;
             if (value > maxValue) result = maxValue;
 
             return result;
-        }
-        public static float Clamp(this float value, float minValue, float maxValue)
-        {
-            return (float)Clamp((double)value, (double)minValue, (double)maxValue);
         }
     }
 }

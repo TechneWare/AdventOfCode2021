@@ -22,26 +22,24 @@ namespace AdventOfCode2021.Puzzels
             Data.HydroThermal.LoadData(TestMode);
 
             var start = DateTime.Now;
-            var pointsInSystem = new List<PointF>();
-            var linesToCheck = new List<Line>();
-            linesToCheck.AddRange(Data.HydroThermal.Lines.Where(l => l.IsHorizontal || l.IsVertical));
 
-            foreach (var line in linesToCheck)
-                pointsInSystem.AddRange(line.PointsNoTrig(step: 1));
+            var pointsInSystem =
+                Data.HydroThermal.Lines.Where(l => l.IsHorizontal || l.IsVertical)
+                .SelectMany(l => l.PointsNoTrig(step: 1)
+                .Select(p => new { p.X, p.Y }))
+                .ToArray();
 
             int OverlapCount = 0;
-            var overLapLock = new object();
-            var distinctPoints = pointsInSystem.Distinct().ToList();
-            Parallel.ForEach(distinctPoints, (point) =>
+            var overlapLock = new object();
+            _ = Parallel.ForEach(pointsInSystem.Distinct(), (point) =>
             {
-                var matchedPoints = pointsInSystem.Where(p => p.X == point.X && p.Y == point.Y).ToList();
-                if (matchedPoints.Count > 1)
-                    lock (overLapLock)
+                if (pointsInSystem.Where(p => p.X == point.X)
+                                  .Count(p => p.Y == point.Y) > 1)
+                    lock (overlapLock)
                         OverlapCount++;
             });
 
             var timeLapse = (DateTime.Now - start).TotalSeconds;
-
             Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay5 Part1:\tOverlaps { OverlapCount }\t\t{timeLapse:F4} Seconds");
         }
 
@@ -50,24 +48,23 @@ namespace AdventOfCode2021.Puzzels
             Data.HydroThermal.LoadData(TestMode);
 
             var start = DateTime.Now;
-            var pointsInSystem = new List<PointF>();
-            var linesToCheck = Data.HydroThermal.Lines;
 
-            foreach (var line in linesToCheck)
-                pointsInSystem.AddRange(line.PointsNoTrig(step: 1));
+            var pointsInSystem =
+                Data.HydroThermal.Lines
+                .SelectMany(l => l.PointsNoTrig(step: 1)
+                .Select(p => new { p.X, p.Y }))
+                .ToArray();
 
             int OverlapCount = 0;
-            var overLapLock = new object();
-            var distinctPoints = pointsInSystem.Distinct().ToList();
-
-            Parallel.ForEach(distinctPoints, (point) =>
+            var overlapLock = new object();
+            _ = Parallel.ForEach(pointsInSystem.Distinct(), (point) =>
             {
-                var matchedPoints = pointsInSystem.Where(p => p.X == point.X && p.Y == point.Y).ToList();
-                if (matchedPoints.Count > 1)
-                    lock (overLapLock)
+                if (pointsInSystem.Where(p => p.X == point.X)
+                                  .Count(p => p.Y == point.Y) > 1)
+                    lock (overlapLock)
                         OverlapCount++;
             });
-            
+
             var timeLapse = (DateTime.Now - start).TotalSeconds;
 
             Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay5 Part2:\tOverlaps { OverlapCount }\t\t{timeLapse:F4} Seconds");

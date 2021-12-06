@@ -10,7 +10,7 @@ namespace AdventOfCode2021.Data
 {
     public static class HydroThermal
     {
-        public static List<Line>? Lines { get; set; }
+        public static IList<Line> Lines { get; set; }
 
         public static void LoadData(bool TestMode)
         {
