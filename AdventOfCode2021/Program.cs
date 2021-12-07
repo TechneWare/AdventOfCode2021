@@ -14,7 +14,8 @@ namespace AdventOfCode2021
             new Puzzels.Day4(),
             new Puzzels.Day5_Trig(),
             new Puzzels.Day5_NoTrig(),
-            new Puzzels.Day6()
+            new Puzzels.Day6(),
+            new Puzzels.Day7(),
         };
         
         public static void Main(string[] args)
