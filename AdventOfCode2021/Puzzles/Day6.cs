@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2021.Puzzels
+namespace AdventOfCode2021.Puzzles
 {
     /// <summary>
     /// --- Day 6: Lanternfish ---
     /// <see cref="https://adventofcode.com/2021/day/6"/>
     /// </summary>
-    public class Day6 : Puzzel
+    public class Day6 : Puzzle
     {
         public Day6()
             : base(Name: "--- Day 6: Lanternfish ---") { }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2021.Puzzels
+namespace AdventOfCode2021.Puzzles
 {
-    public class Day7 : Puzzel
+    public class Day7 : Puzzle
     {
         public Day7()
             : base(Name: "--- Day 7: The Treachery of Whales ---") { }

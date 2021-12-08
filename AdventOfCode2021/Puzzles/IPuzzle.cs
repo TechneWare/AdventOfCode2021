@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2021.Puzzels
+namespace AdventOfCode2021.Puzzles
 {
-    public interface IPuzzel
+    public interface IPuzzle
     {
         public void Run();
         public void Part1(bool TestMode);

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2021.Puzzels
+namespace AdventOfCode2021.Puzzles
 {
     /// <summary>
     /// --- Day 3: Binary Diagnostic ---
     /// <see cref="https://adventofcode.com/2021/day/3"/>
     /// </summary>
-    public class Day3 : Puzzel
+    public class Day3 : Puzzle
     {
         public Day3(string Name = "--- Day 3: Binary Diagnostic ---")
             : base(Name) { }

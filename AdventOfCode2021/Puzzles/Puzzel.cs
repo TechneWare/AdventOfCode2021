@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode2021.Puzzels
+namespace AdventOfCode2021.Puzzles
 {
-    public abstract class Puzzel : IPuzzel
+    public abstract class Puzzle : IPuzzle
     {
         private readonly string name;
 
-        public Puzzel(string Name)
+        public Puzzle(string Name)
         {
             name = Name;
         }
