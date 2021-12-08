@@ -68,13 +68,13 @@ namespace AdventOfCode2021.Puzzels
                     {
                         var discard = dataPoints.Where(d => d.Bits[i] == 0).ToList();
                         foreach (var dp in discard)
-                            if (dataPoints.Count() > 1) dataPoints.Remove(dp);
+                            if (dataPoints.Count > 1) dataPoints.Remove(dp);
                     }
                     else
                     {
                         var discard = dataPoints.Where(d => d.Bits[i] == 1).ToList();
                         foreach (var dp in discard)
-                            if (dataPoints.Count() > 1)
+                            if (dataPoints.Count > 1)
                                 dataPoints.Remove(dp);
                     }
 

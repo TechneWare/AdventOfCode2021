@@ -8,14 +8,15 @@ namespace AdventOfCode2021
     {
         static IEnumerable<Puzzels.IPuzzel> puzzels = new Puzzels.IPuzzel[]
         {
-            new Puzzels.Day1(),
-            new Puzzels.Day2(),
-            new Puzzels.Day3(),
-            new Puzzels.Day4(),
-            new Puzzels.Day5_Trig(),
-            new Puzzels.Day5_NoTrig(),
-            new Puzzels.Day6(),
-            new Puzzels.Day7(),
+            //new Puzzels.Day1(),
+            //new Puzzels.Day2(),
+            //new Puzzels.Day3(),
+            //new Puzzels.Day4(),
+            //new Puzzels.Day5_Trig(),
+            //new Puzzels.Day5_NoTrig(),
+            //new Puzzels.Day6(),
+            //new Puzzels.Day7(),
+            new Puzzels.Day8(),
         };
         
         public static void Main(string[] args)

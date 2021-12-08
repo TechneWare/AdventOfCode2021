@@ -17,6 +17,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Data\Files\7SegmentTestInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Files\7SegmentInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Files\CrabsInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
