@@ -15,7 +15,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day5_NoTrig : Puzzle
     {
         public Day5_NoTrig()
-            : base(Name: "--- Day 5: Hydrothermal Venture (No Trig) ---") { }
+            : base(Name: "--- Day 5: Hydrothermal Venture (No Trig) ---", DayNumber: 5) { }
 
         public override void Part1(bool TestMode)
         {

@@ -14,7 +14,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day6 : Puzzle
     {
         public Day6()
-            : base(Name: "--- Day 6: Lanternfish ---") { }
+            : base(Name: "--- Day 6: Lanternfish ---", DayNumber: 6) { }
 
         public override void Part1(bool TestMode)
         {

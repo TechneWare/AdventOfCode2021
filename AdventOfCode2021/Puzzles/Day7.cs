@@ -9,7 +9,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day7 : Puzzle
     {
         public Day7()
-            : base(Name: "--- Day 7: The Treachery of Whales ---") { }
+            : base(Name: "--- Day 7: The Treachery of Whales ---", DayNumber: 7) { }
 
         public override void Part1(bool TestMode)
         {

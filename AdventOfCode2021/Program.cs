@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCode2021.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,25 +7,48 @@ namespace AdventOfCode2021
 {
     public class Program
     {
-        static IEnumerable<Puzzles.IPuzzle> puzzles = new Puzzles.IPuzzle[]
-        {
-            new Puzzles.Day1(),
-            new Puzzles.Day2(),
-            new Puzzles.Day3(),
-            new Puzzles.Day4(),
-            new Puzzles.Day5_Trig(),
-            new Puzzles.Day5_NoTrig(),
-            new Puzzles.Day6(),
-            new Puzzles.Day7(),
-            new Puzzles.Day8(),
-        };
+        
         
         public static void Main(string[] args)
         {
-            foreach (var puzzle in puzzles)
-                puzzle.Run();
+            var availableCommands = Utils.GetAvailableCommands();
+            var parser = new CommandParser(availableCommands);
 
-            Console.ReadLine();
+            
+            Utils.PrintUsage(availableCommands);
+            Console.WriteLine();
+            
+            Console.WriteLine("== Puzzles ===");
+            parser.ParseCommand(new string[] { "ListPuzzles" }).Run();
+            Console.WriteLine();
+
+            Console.WriteLine("-- Most Recent Puzzle --");
+            parser.ParseCommand(new string[] { "RunPuzzle", "Last" }).Run();
+            Console.WriteLine();
+
+            ICommand lastCommand = null;
+            do
+            {
+                args = GetInput().Split(' ');
+
+                if (args.Length == 0 || string.IsNullOrEmpty(args[0]))
+                    Utils.PrintUsage(availableCommands);
+                else
+                {
+                    ICommand? command = parser.ParseCommand(args);
+                    if (command != null)
+                    {
+                        lastCommand = command;
+                        command.Run();
+                    }
+                }
+            } while (lastCommand == null || lastCommand.GetType() != typeof(QuitCommand));
+        }
+        static string GetInput()
+        {
+            Console.Write("$ ");
+            string commandInput = Console.ReadLine();
+            return commandInput;
         }
     }
 }

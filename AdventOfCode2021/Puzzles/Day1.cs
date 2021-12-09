@@ -12,8 +12,8 @@ namespace AdventOfCode2021.Puzzles
     /// </summary>
     public class Day1: Puzzle
     {
-        public Day1(string Name = "--- Day 1: Sonar Sweep ---") 
-            : base(Name) { }
+        public Day1() 
+            : base(Name: "--- Day 1: Sonar Sweep ---", DayNumber: 1) { }
 
         public override void Part1(bool TestMode)
         {

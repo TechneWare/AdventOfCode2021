@@ -9,10 +9,13 @@ namespace AdventOfCode2021.Puzzles
     public abstract class Puzzle : IPuzzle
     {
         private readonly string name;
-
-        public Puzzle(string Name)
+        private readonly double dayNumber;
+        public double DayNumber => dayNumber;
+        public string Name => name;
+        public Puzzle(string Name, double DayNumber)
         {
             name = Name;
+            dayNumber = DayNumber;
         }
         public void Run()
         {

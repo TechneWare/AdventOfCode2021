@@ -15,14 +15,14 @@ namespace AdventOfCode2021.Puzzles
     public class Day5_Trig : Puzzle
     {
         public Day5_Trig()
-            : base(Name: "--- Day 5: Hydrothermal Venture (Using Trig) ---") { }
+            : base(Name: "--- Day 5: Hydrothermal Venture (Using Trig) ---", DayNumber: 5.1) { }
 
         public override void Part1(bool TestMode)
         {
             Data.HydroThermal.LoadData(TestMode);
 
             var start = DateTime.Now;
-            
+
             var pointsInSystem =
                 Data.HydroThermal.Lines.Where(l => l.IsHorizontal || l.IsVertical)
                 .SelectMany(l => l.Points(step: 1).ToInt()

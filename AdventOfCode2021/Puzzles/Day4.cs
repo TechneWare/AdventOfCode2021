@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day4 : Puzzle
     {
         public Day4()
-            : base(Name: "--- Day 4: Giant Squid ---") { }
+            : base(Name: "--- Day 4: Giant Squid ---", DayNumber: 4) { }
 
         public override void Part1(bool TestMode)
         {

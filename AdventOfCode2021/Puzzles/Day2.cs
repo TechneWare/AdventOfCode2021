@@ -12,8 +12,8 @@ namespace AdventOfCode2021.Puzzles
     /// </summary>
     public class Day2 : Puzzle
     {
-        public Day2(string Name = "--- Day 2: Dive! ---")
-            : base(Name) { }
+        public Day2()
+            : base(Name: "--- Day 2: Dive! ---", DayNumber: 2) { }
 
         public override void Part1(bool TestMode)
         {
@@ -47,7 +47,7 @@ namespace AdventOfCode2021.Puzzles
 
             Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay2 Part1:\tAnswer = {answer}");
         }
-  
+
         public override void Part2(bool TestMode)
         {
             Data.SubPath.TestMode = TestMode;

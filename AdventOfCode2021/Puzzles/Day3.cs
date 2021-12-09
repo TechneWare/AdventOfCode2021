@@ -12,8 +12,8 @@ namespace AdventOfCode2021.Puzzles
     /// </summary>
     public class Day3 : Puzzle
     {
-        public Day3(string Name = "--- Day 3: Binary Diagnostic ---")
-            : base(Name) { }
+        public Day3()
+            : base(Name: "--- Day 3: Binary Diagnostic ---", DayNumber: 3) { }
 
         public override void Part1(bool TestMode)
         {

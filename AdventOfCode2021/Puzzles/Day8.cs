@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day8 : Puzzle
     {
         public Day8()
-            : base(Name: "--- Day 8: Seven Segment Search ---") { }
+            : base(Name: "--- Day 8: Seven Segment Search ---", DayNumber: 8) { }
 
         public override void Part1(bool TestMode)
         {
@@ -88,7 +88,7 @@ namespace AdventOfCode2021.Puzzles
             var seven = Digits.Where(d => d.Value == 7).Single();
             var eight = Digits.Where(d => d.Value == 8).Single();
             var nine = Digits.Where(d => d.Value == 9).Single();
-            
+
             //Map the unique ones first
             one.Segments = string.Concat(Inputs.Where(i => i.Length == 2).Single().ToCharArray());
             seven.Segments = string.Concat(Inputs.Where(i => i.Length == 3).Single().ToCharArray());
@@ -107,13 +107,13 @@ namespace AdventOfCode2021.Puzzles
             var twoThreeFive = Inputs.Where(i => i.Length == 5).ToList(); //2,3,5 are only ones that have 5 segments
 
             five.Segments = twoThreeFive
-                .Where(i => i.ToCharArray().Contains(f) 
+                .Where(i => i.ToCharArray().Contains(f)
                         && !i.ToCharArray().Contains(c)).Single(); //Has f but not c
             two.Segments = twoThreeFive
-                .Where(i => i.ToCharArray().Contains(c) 
+                .Where(i => i.ToCharArray().Contains(c)
                         && !i.ToCharArray().Contains(f)).Single();  //has c but not f
             three.Segments = twoThreeFive
-                .Where(i => i != five.Segments 
+                .Where(i => i != five.Segments
                 && i != two.Segments).Single(); //only one remaining in twoThreeFive
 
             var b = five.Chars.Except(two.Chars).Except(one.Chars).Single(); //b unique in 5, given its not in 2 or 1
