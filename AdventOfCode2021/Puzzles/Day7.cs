@@ -9,7 +9,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day7 : Puzzle
     {
         public Day7()
-            : base(Name: "--- Day 7: The Treachery of Whales ---", DayNumber: 7) { }
+            : base(Name: "The Treachery of Whales", DayNumber: 7) { }
 
         public override void Part1(bool TestMode)
         {
@@ -17,7 +17,7 @@ namespace AdventOfCode2021.Puzzles
             var positions = Data.Crabs.Positions;
             var fuelCost = CalcFuelV1(positions);
 
-            Part1Result = $"Day7 Part1:\tFuel Cost { fuelCost }";
+            Part1Result = $"Fuel Cost { fuelCost }";
         }
         public override void Part2(bool TestMode)
         {
@@ -27,7 +27,7 @@ namespace AdventOfCode2021.Puzzles
             var fuelCost = CalcFuelV2(positions);
 
             var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Part2Result = $"Day7 Part2:\tFuel Cost { fuelCost }";
+            Part2Result = $"Fuel Cost { fuelCost }";
         }
         private static int CalcFuelV1(List<int> positions)
         {

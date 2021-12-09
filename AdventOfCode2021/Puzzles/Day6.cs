@@ -14,7 +14,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day6 : Puzzle
     {
         public Day6()
-            : base(Name: "--- Day 6: Lanternfish ---", DayNumber: 6) { }
+            : base(Name: "Lanternfish", DayNumber: 6) { }
 
         public override void Part1(bool TestMode)
         {
@@ -28,7 +28,7 @@ namespace AdventOfCode2021.Puzzles
             for (int day = 0; day < maxDays; day++)
                 fish.Update();
 
-            Part1Result = $"Day6 Part1:\tTotal Fish { fish.Sum() }";
+            Part1Result = $"Total Fish { fish.Sum() }";
         }
 
         public override void Part2(bool TestMode)
@@ -44,7 +44,7 @@ namespace AdventOfCode2021.Puzzles
             for (int day = 0; day < maxDays; day++)
                 fish.Update();
 
-            Part2Result = $"Day6 Part2:\tTotal Fish { fish.Sum() }";
+            Part2Result = $"Total Fish { fish.Sum() }";
         }
     }
 

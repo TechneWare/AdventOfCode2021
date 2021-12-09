@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day3 : Puzzle
     {
         public Day3()
-            : base(Name: "--- Day 3: Binary Diagnostic ---", DayNumber: 3) { }
+            : base(Name: "Binary Diagnostic", DayNumber: 3) { }
 
         public override void Part1(bool TestMode)
         {
@@ -39,7 +39,7 @@ namespace AdventOfCode2021.Puzzles
             var e = Convert.ToInt32(epsilon, 2);
 
             var power = g * e;
-            Part1Result = $"Day3 Part1:\tPower={power}";
+            Part1Result = $"Power={power}";
         }
         public override void Part2(bool TestMode)
         {
@@ -49,7 +49,7 @@ namespace AdventOfCode2021.Puzzles
 
             var lifeRating = oxyValue * co2Value;
 
-            Part2Result = $"Day3 Part2:\tLife Rating = {lifeRating}";
+            Part2Result = $"Life Rating = {lifeRating}";
         }
         private int GetOxyValue(List<Data.DataPoint> dataPoints)
         {

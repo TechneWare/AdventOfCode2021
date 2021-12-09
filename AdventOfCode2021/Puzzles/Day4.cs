@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day4 : Puzzle
     {
         public Day4()
-            : base(Name: "--- Day 4: Giant Squid ---", DayNumber: 4) { }
+            : base(Name: "Giant Squid", DayNumber: 4) { }
 
         public override void Part1(bool TestMode)
         {
@@ -38,7 +38,7 @@ namespace AdventOfCode2021.Puzzles
                     break;
             }
 
-            Part1Result = $"Day4 Part1:\tFirst Win = {(winner != null ? winner.Score : "No Winner")}";
+            Part1Result = $"First Win = {(winner != null ? winner.Score : "No Winner")}";
         }
 
         public override void Part2(bool TestMode)
@@ -57,7 +57,7 @@ namespace AdventOfCode2021.Puzzles
                             winner = board;
                     }
 
-           Part2Result = $"Day4 Part2:\tLast Win = {(winner != null ? winner.Score : "No Winner")}";
+           Part2Result = $"Last Win = {(winner != null ? winner.Score : "No Winner")}";
         }
     }
 }

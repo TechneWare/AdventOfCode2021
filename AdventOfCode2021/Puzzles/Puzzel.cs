@@ -12,8 +12,8 @@ namespace AdventOfCode2021.Puzzles
         private readonly double dayNumber;
         public double DayNumber => dayNumber;
         public string Name => name;
-        public string Part1Result { get; set; }
-        public string Part2Result { get; set; }
+        public string Part1Result { get; set; } = "Not Run";
+        public string Part2Result { get; set; } = "Not Run";
 
         public Puzzle(string Name, double DayNumber)
         {
@@ -22,19 +22,19 @@ namespace AdventOfCode2021.Puzzles
         }
         public void Run()
         {
-            Console.WriteLine($"\n{name}");
+            Console.WriteLine($"\n--- Day:{DayNumber} {name} ---");
 
             foreach (var mode in new bool[] { true, false })
             {
                 var start = DateTime.Now;
                 Part1(mode);
                 var duration = (DateTime.Now - start).TotalSeconds;
-                Console.WriteLine($"{(mode ? "Test" : "Actual").PadRight(10)}{Part1Result.PadRight(40)}{duration:F8} Seconds");
+                Console.WriteLine($"{(mode ? "Test" : "Actual").PadRight(7)}Day {DayNumber.ToString().PadRight(4)} Part1: {Part1Result.PadRight(26)}{duration:F8} Seconds");
 
                 start = DateTime.Now;
                 Part2(mode);
                 duration = (DateTime.Now - start).TotalSeconds;
-                Console.WriteLine($"{(mode ? "Test" : "Actual").PadRight(10)}{Part2Result.PadRight(40)}{duration:F8} Seconds");
+                Console.WriteLine($"{(mode ? "Test" : "Actual").PadRight(7)}Day {dayNumber.ToString().PadRight(4)} Part2: {Part2Result.PadRight(26)}{duration:F8} Seconds");
             }
         }
 

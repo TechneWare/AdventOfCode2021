@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day8 : Puzzle
     {
         public Day8()
-            : base(Name: "--- Day 8: Seven Segment Search ---", DayNumber: 8) { }
+            : base(Name: "Seven Segment Search", DayNumber: 8) { }
 
         public override void Part1(bool TestMode)
         {
@@ -30,7 +30,7 @@ namespace AdventOfCode2021.Puzzles
                 targets.AddRange(output.Where(i => targetSizes.Contains(i.Length)).Select(i => i));
             }
             
-            Part1Result = $"Day8 Part1:\tAnswer { targets.Count }";
+            Part1Result = $"Answer { targets.Count }";
         }
 
         public override void Part2(bool TestMode)
@@ -51,7 +51,7 @@ namespace AdventOfCode2021.Puzzles
                 outputs.Add(value);
             }
 
-            Part2Result = $"Day8 Part2:\tAnswer { outputs.Sum() }";
+            Part2Result = $"Answer { outputs.Sum() }";
         }
     }
 

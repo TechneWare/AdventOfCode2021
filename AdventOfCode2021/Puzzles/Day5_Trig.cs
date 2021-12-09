@@ -15,7 +15,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day5_Trig : Puzzle
     {
         public Day5_Trig()
-            : base(Name: "--- Day 5.1: Hydrothermal Venture (Using Trig) ---", DayNumber: 5.1) { }
+            : base(Name: "Hydrothermal Venture (Using Trig)", DayNumber: 5.1) { }
 
         public override void Part1(bool TestMode)
         {
@@ -37,7 +37,7 @@ namespace AdventOfCode2021.Puzzles
                           OverlapCount++;
               });
 
-            Part1Result = $"Day5 Part1:\tOverlaps { OverlapCount }";
+            Part1Result = $"Overlaps { OverlapCount }";
         }
 
         public override void Part2(bool TestMode)
@@ -59,7 +59,7 @@ namespace AdventOfCode2021.Puzzles
                         OverlapCount++;
             });
 
-            Part2Result = $"Day5 Part2:\tOverlaps { OverlapCount }";
+            Part2Result = $"Overlaps { OverlapCount }";
         }
     }
 }

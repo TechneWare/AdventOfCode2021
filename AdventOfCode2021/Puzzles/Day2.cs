@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Puzzles
     public class Day2 : Puzzle
     {
         public Day2()
-            : base(Name: "--- Day 2: Dive! ---", DayNumber: 2) { }
+            : base(Name: "Dive!", DayNumber: 2) { }
 
         public override void Part1(bool TestMode)
         {
@@ -45,7 +45,7 @@ namespace AdventOfCode2021.Puzzles
 
             var answer = hor * depth;
 
-            Part1Result = $"Day2 Part1:\tAnswer = {answer}";
+            Part1Result = $"Answer = {answer}";
         }
 
         public override void Part2(bool TestMode)
@@ -80,7 +80,7 @@ namespace AdventOfCode2021.Puzzles
 
             var answer = hor * depth;
 
-            Part2Result = $"Day2 Part2:\tAnser = {answer}";
+            Part2Result = $"Answer = {answer}";
         }
     }
 }
