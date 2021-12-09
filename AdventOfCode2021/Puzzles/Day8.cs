@@ -20,7 +20,6 @@ namespace AdventOfCode2021.Puzzles
             Data.SevenSegment.LoadData(TestMode);
             var lines = Data.SevenSegment.Inputs.ToList();
             var targetSizes = new List<int> { 2, 3, 4, 7 };
-            var start = DateTime.Now;
             var targets = new List<string>();
             foreach (var line in lines)
             {
@@ -30,16 +29,14 @@ namespace AdventOfCode2021.Puzzles
 
                 targets.AddRange(output.Where(i => targetSizes.Contains(i.Length)).Select(i => i));
             }
-
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay8 Part1:\tAnswer { targets.Count }\t\t{timeLapse:F8} Seconds");
+            
+            Part1Result = $"Day8 Part1:\tAnswer { targets.Count }";
         }
 
         public override void Part2(bool TestMode)
         {
             Data.SevenSegment.LoadData(TestMode);
             var lines = Data.SevenSegment.Inputs.ToList();
-            var start = DateTime.Now;
             var outputs = new List<int>();
 
             foreach (var line in lines)
@@ -54,9 +51,7 @@ namespace AdventOfCode2021.Puzzles
                 outputs.Add(value);
             }
 
-            var result = outputs.Sum();
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay8 Part1:\tAnswer { result }\t\t{timeLapse:F8} Seconds");
+            Part2Result = $"Day8 Part2:\tAnswer { outputs.Sum() }";
         }
     }
 

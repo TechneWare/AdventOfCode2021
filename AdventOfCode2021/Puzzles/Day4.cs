@@ -38,7 +38,7 @@ namespace AdventOfCode2021.Puzzles
                     break;
             }
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay4 Part1:\tFirst Winning Score = {(winner != null ? winner.Score : "No Winner")}");
+            Part1Result = $"Day4 Part1:\tFirst Win = {(winner != null ? winner.Score : "No Winner")}";
         }
 
         public override void Part2(bool TestMode)
@@ -57,7 +57,7 @@ namespace AdventOfCode2021.Puzzles
                             winner = board;
                     }
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay4 Part2:\tLast Winning Score = {(winner != null ? winner.Score : "No Winner")}");
+           Part2Result = $"Day4 Part2:\tLast Win = {(winner != null ? winner.Score : "No Winner")}";
         }
     }
 }

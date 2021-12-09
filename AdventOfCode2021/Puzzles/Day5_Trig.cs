@@ -15,13 +15,11 @@ namespace AdventOfCode2021.Puzzles
     public class Day5_Trig : Puzzle
     {
         public Day5_Trig()
-            : base(Name: "--- Day 5: Hydrothermal Venture (Using Trig) ---", DayNumber: 5.1) { }
+            : base(Name: "--- Day 5.1: Hydrothermal Venture (Using Trig) ---", DayNumber: 5.1) { }
 
         public override void Part1(bool TestMode)
         {
             Data.HydroThermal.LoadData(TestMode);
-
-            var start = DateTime.Now;
 
             var pointsInSystem =
                 Data.HydroThermal.Lines.Where(l => l.IsHorizontal || l.IsVertical)
@@ -39,16 +37,12 @@ namespace AdventOfCode2021.Puzzles
                           OverlapCount++;
               });
 
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay5 Part1:\tOverlaps { OverlapCount }\t\t{timeLapse:F4} Seconds");
+            Part1Result = $"Day5 Part1:\tOverlaps { OverlapCount }";
         }
 
         public override void Part2(bool TestMode)
         {
             Data.HydroThermal.LoadData(TestMode);
-
-            var start = DateTime.Now;
-
             var pointsInSystem =
                 Data.HydroThermal.Lines
                 .SelectMany(l => l.Points(step: 1).ToInt()
@@ -65,8 +59,7 @@ namespace AdventOfCode2021.Puzzles
                         OverlapCount++;
             });
 
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay5 Part2:\tOverlaps { OverlapCount }\t\t{timeLapse:F4} Seconds");
+            Part2Result = $"Day5 Part2:\tOverlaps { OverlapCount }";
         }
     }
 }

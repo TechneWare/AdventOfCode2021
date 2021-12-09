@@ -10,9 +10,9 @@ namespace AdventOfCode2021.Puzzles
     /// --- Day 1: Sonar Sweep ---
     /// <see cref="https://adventofcode.com/2021/day/1"/>
     /// </summary>
-    public class Day1: Puzzle
+    public class Day1 : Puzzle
     {
-        public Day1() 
+        public Day1()
             : base(Name: "--- Day 1: Sonar Sweep ---", DayNumber: 1) { }
 
         public override void Part1(bool TestMode)
@@ -28,7 +28,7 @@ namespace AdventOfCode2021.Puzzles
                 lastValue = Data.SonarInput.Data[i];
             }
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay1 Part1:\tIncrements = {increments}");
+            Part1Result = $"Day1 Part1:\tIncrements = {increments}";
         }
 
         public override void Part2(bool TestMode)
@@ -46,7 +46,7 @@ namespace AdventOfCode2021.Puzzles
                 lastValue = data[i];
             }
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay1 Part2:\tIncrements={increments}");
+            Part2Result = $"Day1 Part2:\tIncrements={increments}";
         }
     }
 }

@@ -45,7 +45,7 @@ namespace AdventOfCode2021.Puzzles
 
             var answer = hor * depth;
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay2 Part1:\tAnswer = {answer}");
+            Part1Result = $"Day2 Part1:\tAnswer = {answer}";
         }
 
         public override void Part2(bool TestMode)
@@ -80,7 +80,7 @@ namespace AdventOfCode2021.Puzzles
 
             var answer = hor * depth;
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay2 Part2:\tAnser = {answer}");
+            Part2Result = $"Day2 Part2:\tAnser = {answer}";
         }
     }
 }

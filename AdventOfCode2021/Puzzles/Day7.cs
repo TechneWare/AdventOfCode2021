@@ -15,11 +15,9 @@ namespace AdventOfCode2021.Puzzles
         {
             Data.Crabs.LoadData(TestMode);
             var positions = Data.Crabs.Positions;
-            var start = DateTime.Now;
             var fuelCost = CalcFuelV1(positions);
 
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay7 Part1:\tFuel Cost { fuelCost }\t\t{timeLapse:F8} Seconds");
+            Part1Result = $"Day7 Part1:\tFuel Cost { fuelCost }";
         }
         public override void Part2(bool TestMode)
         {
@@ -29,7 +27,7 @@ namespace AdventOfCode2021.Puzzles
             var fuelCost = CalcFuelV2(positions);
 
             var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay7 Part2:\tFuel Cost { fuelCost }\t\t{timeLapse:F8} Seconds");
+            Part2Result = $"Day7 Part2:\tFuel Cost { fuelCost }";
         }
         private static int CalcFuelV1(List<int> positions)
         {

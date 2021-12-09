@@ -24,7 +24,7 @@ namespace AdventOfCode2021.Commands
 
         public void Run()
         {
-            foreach (var p in Utils.GetAllPuzzles())
+            foreach (var p in Utils.GetAllPuzzles().OrderBy(p=>p.DayNumber))
                 Console.WriteLine($"Day:{p.DayNumber}\tName:{p.Name}");
         }
     }

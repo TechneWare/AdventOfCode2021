@@ -23,14 +23,12 @@ namespace AdventOfCode2021.Puzzles
             long[] fish = new long[9];
             for (int day = 0; day < fish.Length; day++)
                 fish[day] = fishData.Count(d => d == day);
-            
-            var start = DateTime.Now;
+
             var maxDays = 80;
             for (int day = 0; day < maxDays; day++)
                 fish.Update();
 
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay6 Part1:\tTotal Fish { fish.Sum() }\t\t{timeLapse:F8} Seconds");
+            Part1Result = $"Day6 Part1:\tTotal Fish { fish.Sum() }";
         }
 
         public override void Part2(bool TestMode)
@@ -42,13 +40,11 @@ namespace AdventOfCode2021.Puzzles
             for (int day = 0; day < fish.Length; day++)
                 fish[day] = fishData.Count(d => d == day);
 
-            var start = DateTime.Now;
             var maxDays = 256;
             for (int day = 0; day < maxDays; day++)
                 fish.Update();
 
-            var timeLapse = (DateTime.Now - start).TotalSeconds;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay6 Part2:\tTotal Fish { fish.Sum() }\t\t{timeLapse:F8} Seconds");
+            Part2Result = $"Day6 Part2:\tTotal Fish { fish.Sum() }";
         }
     }
 

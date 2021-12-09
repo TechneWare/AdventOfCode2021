@@ -39,7 +39,7 @@ namespace AdventOfCode2021.Puzzles
             var e = Convert.ToInt32(epsilon, 2);
 
             var power = g * e;
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay3 Part1:\tPower={power}");
+            Part1Result = $"Day3 Part1:\tPower={power}";
         }
         public override void Part2(bool TestMode)
         {
@@ -49,7 +49,7 @@ namespace AdventOfCode2021.Puzzles
 
             var lifeRating = oxyValue * co2Value;
 
-            Console.WriteLine($"{(TestMode ? "Test" : "Actual")}\tDay3 Part2:\tLife Support Rating = {lifeRating}");
+            Part2Result = $"Day3 Part2:\tLife Rating = {lifeRating}";
         }
         private int GetOxyValue(List<Data.DataPoint> dataPoints)
         {
