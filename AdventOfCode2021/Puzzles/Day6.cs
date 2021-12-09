@@ -19,7 +19,7 @@ namespace AdventOfCode2021.Puzzles
         public override void Part1(bool TestMode)
         {
             Data.LaternFish.LoadData(TestMode);
-            var fishData = Data.LaternFish.Fish.Clone().ToArray();
+            var fishData = Data.LaternFish.Fish.ToArray();
             long[] fish = new long[9];
             for (int day = 0; day < fish.Length; day++)
                 fish[day] = fishData.Count(d => d == day);
@@ -37,7 +37,7 @@ namespace AdventOfCode2021.Puzzles
         {
             Data.LaternFish.LoadData(TestMode);
 
-            var fishData = Data.LaternFish.Fish.Clone().ToArray();
+            var fishData = Data.LaternFish.Fish.ToArray();
             long[] fish = new long[9];
             for (int day = 0; day < fish.Length; day++)
                 fish[day] = fishData.Count(d => d == day);

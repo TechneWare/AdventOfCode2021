@@ -44,8 +44,8 @@ namespace AdventOfCode2021.Puzzles
         public override void Part2(bool TestMode)
         {
             Data.SubPower.TestMode = TestMode;
-            int oxyValue = GetOxyValue(Data.SubPower.PowerData.Clone());
-            int co2Value = GetCo2Value(Data.SubPower.PowerData.Clone());
+            int oxyValue = GetOxyValue(Data.SubPower.PowerData);
+            int co2Value = GetCo2Value(Data.SubPower.PowerData);
 
             var lifeRating = oxyValue * co2Value;
 

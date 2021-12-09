@@ -40,7 +40,7 @@ namespace AdventOfCode2021.Data
                             board = new Board();
                         else
                         {
-                            Boards.Add(board.Clone());
+                            Boards.Add(board);
                             board = new Board();
                         }
                     }

@@ -14,7 +14,7 @@ namespace AdventOfCode2021.Puzzles
         public override void Part1(bool TestMode)
         {
             Data.Crabs.LoadData(TestMode);
-            var positions = Data.Crabs.Positions.Clone();
+            var positions = Data.Crabs.Positions;
             var start = DateTime.Now;
             var fuelCost = CalcFuelV1(positions);
 
@@ -24,7 +24,7 @@ namespace AdventOfCode2021.Puzzles
         public override void Part2(bool TestMode)
         {
             Data.Crabs.LoadData(TestMode);
-            var positions = Data.Crabs.Positions.Clone();
+            var positions = Data.Crabs.Positions;
             var start = DateTime.Now;
             var fuelCost = CalcFuelV2(positions);
 
