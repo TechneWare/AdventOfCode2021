@@ -70,8 +70,7 @@ namespace AdventOfCode2021.Puzzles
                 heatMap[tRow][tCol] = -1;
 
             SetBasinRow(heatMap, basinMap, tRow, tCol);
-            //SetBasinCol(heatMap, basinMap, tRow, tCol);
-
+          
             return basinMap;
         }
         private static void SetBasinRow(int[][] heatMap, int[][] basinMap, int tRow, int tCol)
