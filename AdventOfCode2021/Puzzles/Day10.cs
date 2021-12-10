@@ -8,7 +8,7 @@ namespace AdventOfCode2021.Puzzles
 {
     /// <summary>
     /// --- Day 10: Syntax Scoring ---
-    /// <see cref=""/>
+    /// <see cref="https://adventofcode.com/2021/day/9"/>
     /// </summary>
     public class Day10 : Puzzle
     {
