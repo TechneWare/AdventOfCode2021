@@ -33,7 +33,10 @@ namespace AdventOfCode2021.Puzzles
                     {
                         var c1 = stack.Pop();
                         if (!c1.IsValidPair(c))
+                        {
                             score += c.GetPoints();
+                            break;
+                        }
                     }
                 }
             }
