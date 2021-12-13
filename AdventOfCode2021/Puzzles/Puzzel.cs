@@ -22,7 +22,7 @@ namespace AdventOfCode2021.Puzzles
         }
         public void Run()
         {
-            Console.WriteLine($"\n--- Day:{DayNumber} {name} ---");
+            Console.WriteLine($"\n--- Day {DayNumber} {name} ---");
 
             foreach (var mode in new bool[] { true, false })
             {
