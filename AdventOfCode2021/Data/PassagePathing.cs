@@ -69,10 +69,11 @@ namespace AdventOfCode2021.Data
         public int Id { get; internal set; }
         public List<Node> Parents { get; set; } = new List<Node>();
         public List<Node> Children { get; set; } = new List<Node>();
+        
         public bool IsStart => Name.ToLower() == "start";
         public bool IsEnd => Name.ToLower() == "end";
         public bool IsSmall => Name.ToCharArray().All(c => char.IsLetter(c) && !char.IsUpper(c));
-        public bool IsDeadEnd => !Children.Any();
+        public bool IsDeadEnd => !IsEnd && !Children.Any();
         public int NumVisits { get; set; }
         public bool HasBeenVisited => NumVisits > 0;
         public string Name { get; internal set; }

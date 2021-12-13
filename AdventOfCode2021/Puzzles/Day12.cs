@@ -72,9 +72,11 @@ namespace AdventOfCode2021.Puzzles
             var paths = new List<Path>();
 
             var AllPaths = new List<Path>() { new Path(startNode) };
+
             if (version == Version.One)
             {
                 AllPaths = AllPaths.GetAllPathsV1(AllNodes);
+                //AllPaths.Print();
 
                 foreach (Path path in AllPaths)
                 {
@@ -93,7 +95,12 @@ namespace AdventOfCode2021.Puzzles
 
                     var hasValidStart = path.StartNode.IsStart && path.StartNode.NumVisits == 1;
                     var hasValidEnd = path.EndNode.IsEnd && path.EndNode.NumVisits == 1;
-                    var numSmallTwice = path.Nodes.Where(n => !n.IsStart && !n.IsEnd && n.IsSmall && n.NumVisits > 1).Distinct().Count();
+                    var numSmallTwice = path.Nodes.Where(n =>
+                                                        !n.IsStart &&
+                                                        !n.IsEnd &&
+                                                         n.IsSmall &&
+                                                         n.NumVisits > 1)
+                                                  .Distinct().Count();
 
                     if (hasValidStart && hasValidEnd && numSmallTwice <= 1)
                         paths.Add(path);
@@ -123,16 +130,20 @@ namespace AdventOfCode2021.Puzzles
                         newPaths.Add(newPathChildPath);
                     }
                 }
-                //Follow Parents
-                foreach (Node parentNode in path.EndNode.Parents)
+
+                if (!path.EndNode.IsEnd)
                 {
-                    var CanVisit = parentNode.NumVisits == 0 || !parentNode.IsSmall;
-                    if (CanVisit)
+                    //Follow Parents
+                    foreach (Node parentNode in path.EndNode.Parents)
                     {
-                        var newParentPath = new Path();
-                        newParentPath.Nodes.AddRange(path.Nodes);
-                        newParentPath.Nodes.Add(parentNode.Visit());
-                        newPaths.Add(newParentPath);
+                        var CanVisit = parentNode.NumVisits == 0 || !parentNode.IsSmall;
+                        if (CanVisit)
+                        {
+                            var newParentPath = new Path();
+                            newParentPath.Nodes.AddRange(path.Nodes);
+                            newParentPath.Nodes.Add(parentNode.Visit());
+                            newPaths.Add(newParentPath);
+                        }
                     }
                 }
             }
@@ -156,25 +167,29 @@ namespace AdventOfCode2021.Puzzles
                 //Follow Children
                 foreach (Node childNode in path.EndNode.Children)
                 {
-                    var CanVisit = (childNode.IsSmall && childNode.NumVisits < 2) || !childNode.IsSmall;
+                    var CanVisit = !childNode.IsSmall || childNode.NumVisits < 2;
                     if (CanVisit)
                     {
-                        var newPathChildPath = new Path();
-                        newPathChildPath.Nodes.AddRange(path.Nodes);
-                        newPathChildPath.Nodes.Add(childNode.Visit());
-                        newPaths.Add(newPathChildPath);
+                        var newChildPath = new Path();
+                        newChildPath.Nodes.AddRange(path.Nodes);
+                        newChildPath.Nodes.Add(childNode.Visit());
+                        newPaths.Add(newChildPath);
                     }
                 }
-                //Follow Parents
-                foreach (Node parentNode in path.EndNode.Parents)
+
+                if (!path.EndNode.IsEnd)
                 {
-                    var CanVisit = (parentNode.IsSmall && parentNode.NumVisits < 2) || !parentNode.IsSmall;
-                    if (CanVisit)
+                    //Follow Parents
+                    foreach (Node parentNode in path.EndNode.Parents)
                     {
-                        var newParentPath = new Path();
-                        newParentPath.Nodes.AddRange(path.Nodes);
-                        newParentPath.Nodes.Add(parentNode.Visit());
-                        newPaths.Add(newParentPath);
+                        var CanVisit = !parentNode.IsSmall || parentNode.NumVisits < 2;
+                        if (CanVisit)
+                        {
+                            var newParentPath = new Path();
+                            newParentPath.Nodes.AddRange(path.Nodes);
+                            newParentPath.Nodes.Add(parentNode.Visit());
+                            newPaths.Add(newParentPath);
+                        }
                     }
                 }
             }
@@ -188,13 +203,18 @@ namespace AdventOfCode2021.Puzzles
                     newPath.Nodes.Visit();
 
                     var hasValidStart = newPath.StartNode.IsStart && newPath.StartNode.NumVisits == 1;
-                    var numSmallTwice = newPath.Nodes.Where(n => !n.IsStart && !n.IsEnd && n.IsSmall && n.NumVisits > 1).Distinct().Count();
+                    var numSmallTwice = newPath.Nodes.Where(n =>
+                                                           !n.IsStart &&
+                                                           !n.IsEnd &&
+                                                            n.IsSmall &&
+                                                            n.NumVisits > 1)
+                                                      .Distinct().Count();
+
                     if (hasValidStart && numSmallTwice <= 1)
                         goodPaths.Add(newPath);
 
                 }
 
-                //Paths.AddRange(newPaths.GetAllPathsV2(AllNodes));
                 Paths.AddRange(goodPaths.GetAllPathsV2(AllNodes));
             }
 
