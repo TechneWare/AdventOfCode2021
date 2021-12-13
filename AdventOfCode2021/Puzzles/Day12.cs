@@ -55,6 +55,12 @@ namespace AdventOfCode2021.Puzzles
         {
             Nodes = new List<Node> { startNode };
         }
+        public Path(List<Node> oldPath, Node newNode)
+        {
+            Nodes = new List<Node>();
+            Nodes.AddRange(oldPath);
+            Nodes.Add(newNode);
+        }
         public void AddNode(Node aNode)
         {
             Nodes.Add(aNode);
@@ -113,7 +119,7 @@ namespace AdventOfCode2021.Puzzles
         public static List<Path> GetAllPathsV1(this List<Path> Paths, List<Node> AllNodes)
         {
             var newPaths = new List<Path>();
-            foreach (var path in Paths)
+            foreach (var path in Paths.Where(p => !p.EndNode.IsEnd))
             {
                 AllNodes.Reset();
                 path.Nodes.Visit();
@@ -121,45 +127,29 @@ namespace AdventOfCode2021.Puzzles
                 //Follow Children
                 foreach (Node childNode in path.EndNode.Children)
                 {
-                    var CanVisit = childNode.NumVisits == 0 || !childNode.IsSmall;
+                    var CanVisit = !childNode.IsSmall || childNode.NumVisits == 0;
                     if (CanVisit)
-                    {
-                        var newPathChildPath = new Path();
-                        newPathChildPath.Nodes.AddRange(path.Nodes);
-                        newPathChildPath.Nodes.Add(childNode.Visit());
-                        newPaths.Add(newPathChildPath);
-                    }
+                        newPaths.Add(new Path(path.Nodes, childNode));
                 }
 
-                if (!path.EndNode.IsEnd)
+                //Follow Parents
+                foreach (Node parentNode in path.EndNode.Parents)
                 {
-                    //Follow Parents
-                    foreach (Node parentNode in path.EndNode.Parents)
-                    {
-                        var CanVisit = parentNode.NumVisits == 0 || !parentNode.IsSmall;
-                        if (CanVisit)
-                        {
-                            var newParentPath = new Path();
-                            newParentPath.Nodes.AddRange(path.Nodes);
-                            newParentPath.Nodes.Add(parentNode.Visit());
-                            newPaths.Add(newParentPath);
-                        }
-                    }
+                    var CanVisit = !parentNode.IsSmall || parentNode.NumVisits == 0;
+                    if (CanVisit)
+                        newPaths.Add(new Path(path.Nodes, parentNode));
                 }
             }
 
             if (newPaths.Any())
-            {
-                //Paths.AddRange(newPaths);
                 Paths.AddRange(newPaths.GetAllPathsV1(AllNodes));
-            }
 
             return Paths;
         }
         public static List<Path> GetAllPathsV2(this List<Path> Paths, List<Node> AllNodes)
         {
             var newPaths = new List<Path>();
-            foreach (var path in Paths)
+            foreach (var path in Paths.Where(p => !p.EndNode.IsEnd))
             {
                 AllNodes.Reset();
                 path.Nodes.Visit();
@@ -169,28 +159,15 @@ namespace AdventOfCode2021.Puzzles
                 {
                     var CanVisit = !childNode.IsSmall || childNode.NumVisits < 2;
                     if (CanVisit)
-                    {
-                        var newChildPath = new Path();
-                        newChildPath.Nodes.AddRange(path.Nodes);
-                        newChildPath.Nodes.Add(childNode.Visit());
-                        newPaths.Add(newChildPath);
-                    }
+                        newPaths.Add(new Path(path.Nodes, childNode));
                 }
 
-                if (!path.EndNode.IsEnd)
+                //Follow Parents
+                foreach (Node parentNode in path.EndNode.Parents)
                 {
-                    //Follow Parents
-                    foreach (Node parentNode in path.EndNode.Parents)
-                    {
-                        var CanVisit = !parentNode.IsSmall || parentNode.NumVisits < 2;
-                        if (CanVisit)
-                        {
-                            var newParentPath = new Path();
-                            newParentPath.Nodes.AddRange(path.Nodes);
-                            newParentPath.Nodes.Add(parentNode.Visit());
-                            newPaths.Add(newParentPath);
-                        }
-                    }
+                    var CanVisit = !parentNode.IsSmall || parentNode.NumVisits < 2;
+                    if (CanVisit)
+                        newPaths.Add(new Path(path.Nodes, parentNode));
                 }
             }
 
