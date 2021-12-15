@@ -44,15 +44,17 @@ namespace AdventOfCode2021.Puzzles
         public abstract void Part2(bool TestMode);
         public void Log(string Title, string Message)
         {
-            if (WithLogging)
+            if (WithLogging && (!string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Message)))
             {
                 var forColor = Console.ForegroundColor;
                 var bakColor = Console.BackgroundColor;
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.BackgroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"\n--> {Title}");
-                Console.WriteLine($"--> {Message}");
+                if (!string.IsNullOrEmpty(Title))
+                    Console.WriteLine($"\n--> {Title}");
+                if (!string.IsNullOrEmpty(Message))
+                    Console.WriteLine($"--> {Message}");
                 Console.BackgroundColor = bakColor;
                 Console.ForegroundColor = ConsoleColor.Yellow;
 

@@ -12,16 +12,9 @@ namespace AdventOfCode2021
             var availableCommands = Utils.GetAvailableCommands();
             var parser = new CommandParser(availableCommands);
                         
-            Utils.PrintUsage(availableCommands);
-            Console.WriteLine();
-            
-            Console.WriteLine("== Puzzles ===");
-            parser.ParseCommand(new string[] { "ListPuzzles" }).Run();
-            Console.WriteLine();
-
-            Console.WriteLine("-- Most Recent Puzzle --");
+            parser.ParseCommand(new string[] { "Cls" }).Run();
+            parser.ParseCommand(new string[] { "Welcome" }).Run();
             parser.ParseCommand(new string[] { "RunPuzzle", "Last" }).Run();
-            Console.WriteLine();
 
             ICommand lastCommand = null;
             do

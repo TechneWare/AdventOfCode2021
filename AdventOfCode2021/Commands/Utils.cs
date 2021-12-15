@@ -19,6 +19,7 @@ namespace AdventOfCode2021.Commands
                 new RunAllCommand(),
                 new ListPuzzlesCommand(),
                 new RunPuzzleCommand(),
+                new WelcomeCommand(),
             };
         }
 
