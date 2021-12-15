@@ -10,7 +10,7 @@ namespace AdventOfCode2021.Puzzles
     {
         string Name { get; }
         double DayNumber { get; }
-        public void Run();
+        public void Run(bool withLogging = false);
         public void Part1(bool TestMode);
         public void Part2(bool TestMode);
     }

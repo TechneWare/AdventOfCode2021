@@ -17,7 +17,7 @@ namespace AdventOfCode2021.Commands
         public string[] CommandAlternates => new string[] { };
 
         public string Description => "Internal: Used for bad commands";
-
+        public bool WithLogging { get; set; } = false;
         public BadCommand(string message)
         {
             Message = message;

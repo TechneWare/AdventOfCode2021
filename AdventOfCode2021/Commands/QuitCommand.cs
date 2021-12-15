@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Commands
         public string CommandArgs => "";
         public string[] CommandAlternates => new string[] { "exit" };
         public string Description => "Ends the program";
-
+        public bool WithLogging { get; set; } = false;
         public ICommand MakeCommand(string[] args)
         {
             return new QuitCommand();

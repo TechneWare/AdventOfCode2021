@@ -16,7 +16,7 @@ namespace AdventOfCode2021.Commands
 
         public string Description => "List All Puzzles";
 
-
+        public bool WithLogging { get; set; } = false;
         public ICommand MakeCommand(string[] args)
         {
             return new ListPuzzlesCommand();

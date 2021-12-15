@@ -10,6 +10,7 @@ namespace AdventOfCode2021.Puzzles
     {
         private readonly string name;
         private readonly double dayNumber;
+        private bool WithLogging = false;
         public double DayNumber => dayNumber;
         public string Name => name;
         public string Part1Result { get; set; } = "Not Run";
@@ -20,8 +21,9 @@ namespace AdventOfCode2021.Puzzles
             name = Name;
             dayNumber = DayNumber;
         }
-        public void Run()
+        public void Run(bool withLogging = false)
         {
+            WithLogging = withLogging;
             Console.WriteLine($"\n--- Day {DayNumber} {name} ---");
 
             foreach (var mode in new bool[] { true, false })
@@ -40,5 +42,27 @@ namespace AdventOfCode2021.Puzzles
 
         public abstract void Part1(bool TestMode);
         public abstract void Part2(bool TestMode);
+        public void Log(string Title, string Message)
+        {
+            if (WithLogging)
+            {
+                var forColor = Console.ForegroundColor;
+                var bakColor = Console.BackgroundColor;
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine($"\n--> {Title}");
+                Console.WriteLine($"--> {Message}");
+                Console.BackgroundColor = bakColor;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                Console.WriteLine("\nPress any key to Continue or Q to stop logging\n");
+                Console.ForegroundColor = forColor;
+
+                var key = Console.ReadKey(true).Key;
+                if (key == ConsoleKey.Q)
+                    WithLogging = false;
+            }
+        }
     }
 }

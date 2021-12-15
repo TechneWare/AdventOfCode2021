@@ -15,7 +15,7 @@ namespace AdventOfCode2021.Commands
         public string[] CommandAlternates => new string[] { "cls" };
 
         public string Description => "Clears the screen";
-
+        public bool WithLogging { get; set; } = false;
         public ICommand MakeCommand(string[] args)
         {
             return new ClearCommand();

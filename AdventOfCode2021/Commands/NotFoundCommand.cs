@@ -8,6 +8,7 @@ namespace AdventOfCode2021.Commands
 {
     public class NotFoundCommand : ICommand
     {
+        public bool WithLogging { get; set; } = false;
         public string Name { get; set; }
         public void Run()
         {

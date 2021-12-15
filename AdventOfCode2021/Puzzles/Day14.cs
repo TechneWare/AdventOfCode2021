@@ -31,7 +31,7 @@ namespace AdventOfCode2021.Puzzles
 
             Part2Result = $"Diff = {diff}";
         }
-        private static long GetDiff(int steps)
+        private long GetDiff(int steps)
         {
             long diff = 0;
 
@@ -41,23 +41,31 @@ namespace AdventOfCode2021.Puzzles
             for (int j = 0; j < poly.Length - 1; j++)
                 C1.AddOrUpdate($"{poly[j]}{poly[j + 1]}", 1);
 
+            Log("Init Pairs", C1.ToJson());
+
             for (int j = 0; j < steps; j++)
             {
                 var C2 = new Counter();
                 foreach (var i in C1.Items)
                 {
                     var r = Data.Polymer.Rules.Where(rule => rule.Name == i.Key).Single();
-                    C2.AddOrUpdate($"{i.Key[0]}{r.Value}", C1.Value(i.Key));
-                    C2.AddOrUpdate($"{r.Value}{i.Key[1]}", C1.Value(i.Key));
-                }
+                    C2.AddOrUpdate($"{i.Key[0]}{r.Value}", i.Value);
+                    C2.AddOrUpdate($"{r.Value}{i.Key[1]}", i.Value);
 
+                    Log($"After Rule[{r.Name} -> {r.Value}]: Step {j} Pair {i.Key}", C2.ToJson());
+                }
+                
                 C1 = C2;
+
+                Log($"After Step {j}", C2.ToJson());
             }
 
             var CF = new Counter();
             foreach (var i in C1.Items)
                 CF.AddOrUpdate(i.Key[0].ToString(), i.Value);
             CF.AddOrUpdate(poly.Last().ToString(), 1);
+
+            Log("Count of Char", CF.ToJson());
 
             var min = CF.Items.Min(i => i.Value);
             var max = CF.Items.Max(i => i.Value);
@@ -89,6 +97,10 @@ namespace AdventOfCode2021.Puzzles
                     value = p.Value;
 
                 return value;
+            }
+            public string ToJson()
+            {
+                return Items.ToJson(Newtonsoft.Json.Formatting.None);
             }
         }
         public class Pair

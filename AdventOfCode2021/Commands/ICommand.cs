@@ -8,6 +8,7 @@ namespace AdventOfCode2021.Commands
 {
     public interface ICommand
     {
+        bool WithLogging { get; set; }
         void Run();
     }
 }

@@ -11,14 +11,17 @@ namespace AdventOfCode2021.Commands
         public string CommandName => "RunAll";
 
         public string CommandArgs => "";
-        
+
         public string[] CommandAlternates => new string[] { "all" };
 
         public string Description => "Run All Puzzles";
-
+        public bool WithLogging { get; set; } = false;
         public ICommand MakeCommand(string[] args)
         {
-            return new RunAllCommand();
+            return new RunAllCommand
+            {
+                WithLogging = args.Any(a => a.ToLower() == "log")
+            };
         }
 
         public void Run()

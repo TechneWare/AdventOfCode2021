@@ -18,9 +18,16 @@ namespace AdventOfCode2021.Commands
 
         public double DayNumber { get; set; } = 0;
         public string arg { get; set; } = "";
+
+        public bool WithLogging { get; set; } = false;
+
         public ICommand MakeCommand(string[] args)
         {
-            ICommand cmd = new RunPuzzleCommand();
+            ICommand cmd = new RunPuzzleCommand()
+            {
+                WithLogging = args.Any(a => a.ToLower() == "log")
+            };
+
             if (args.Length > 1)
             {
                 ((RunPuzzleCommand)(cmd)).arg = args[1];
@@ -44,7 +51,7 @@ namespace AdventOfCode2021.Commands
                                   .SingleOrDefault();
 
                 if (puzzle != null)
-                    puzzle.Run();
+                    puzzle.Run(WithLogging);
                 else
                     Console.WriteLine($"Unkown Day Number [{DayNumber}]");
             }
