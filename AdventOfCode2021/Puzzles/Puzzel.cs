@@ -50,7 +50,7 @@ namespace AdventOfCode2021.Puzzles
                 var bakColor = Console.BackgroundColor;
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                Console.BackgroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"\n--> {Title}");
                 Console.WriteLine($"--> {Message}");
                 Console.BackgroundColor = bakColor;
