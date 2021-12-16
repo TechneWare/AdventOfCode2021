@@ -10,7 +10,7 @@ namespace AdventOfCode2021.Puzzles
     {
         private readonly string name;
         private readonly double dayNumber;
-        private bool WithLogging = false;
+        public bool WithLogging = false;
         public double DayNumber => dayNumber;
         public string Name => name;
         public string Part1Result { get; set; } = "Not Run";
