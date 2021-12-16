@@ -28,6 +28,12 @@
     <None Update="Data\Files\ChitinInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Files\PacketTestInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Files\PacketInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Files\PolymerTestInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
