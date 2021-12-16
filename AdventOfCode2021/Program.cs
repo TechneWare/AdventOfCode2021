@@ -16,7 +16,7 @@ namespace AdventOfCode2021
             parser.ParseCommand(new string[] { "Welcome" }).Run();
             parser.ParseCommand(new string[] { "RunPuzzle", "Last" }).Run();
 
-            ICommand lastCommand = null;
+            ICommand? lastCommand = null;
             do
             {
                 args = GetInput().Split(' ');

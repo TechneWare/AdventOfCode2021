@@ -21,9 +21,17 @@ namespace AdventOfCode2021
         {
             return JsonConvert.SerializeObject(obj, formatting);
         }
-        public static T FromJson<T>(this string json)
+        public static T? FromJson<T>(this string json)
         {
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings { MaxDepth = null });
+        }
+
+        public static T? Clone<T>(this T obj)
+        {
+            if (obj == null)
+                return obj;
+            else
+                return obj.ToJson().FromJson<T>();
         }
     }
 }

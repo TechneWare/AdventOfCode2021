@@ -18,19 +18,19 @@ namespace AdventOfCode2021.Puzzles
         public override void Part1(bool TestMode)
         {
             Data.Oragami.LoadData(TestMode);
-            Data.Oragami.Paper?.Fold();
+            Data.Oragami.Page?.Fold();
 
-            var CountOfMarkers = Data.Oragami.Paper?.Points.SelectMany(p => p).Where(IsSet => IsSet == true).Count();
+            var CountOfMarkers = Data.Oragami.Page?.Points.SelectMany(p => p).Where(IsSet => IsSet == true).Count();
             Part1Result = $"Dots = {CountOfMarkers}";
         }
 
         public override void Part2(bool TestMode)
         {
             bool canFold;
-            do { canFold = Data.Oragami.Paper.Fold(); }
+            do { canFold = Data.Oragami.Page.Fold(); }
             while (canFold);
 
-            Data.Oragami.Paper.Print();
+            Data.Oragami.Page.Print();
 
             Part2Result = "";
         }
