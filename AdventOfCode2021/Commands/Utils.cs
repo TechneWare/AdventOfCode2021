@@ -44,6 +44,7 @@ namespace AdventOfCode2021.Commands
                 new Day14(),
                 new Day15(),
                 new Day16(),
+                new Day17(),
             };
         }
         public static void PrintUsage(IEnumerable<ICommandFactory> availableCommands)
