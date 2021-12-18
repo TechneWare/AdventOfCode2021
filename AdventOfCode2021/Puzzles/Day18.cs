@@ -22,26 +22,26 @@ namespace AdventOfCode2021.Puzzles
             Data.Snailfish.LoadData(TestMode);
 
             var numbers = Data.Snailfish.SnailfishNumbers;
-            var homework = new List<Node>();
+            var homework = new List<SnailNum>();
             foreach (var num in numbers)
-                homework.Add(num.GetNode());
+                homework.Add(num.GetSnailfishNumber());
 
             string solve = "";
             long mag = 0;
             if (homework.Any())
             {
-                var result = homework.First();
-                solve = $"\t{result}\n";
-                if (homework.Count() > 1)
+                var snailAnswer = homework.First();
+                solve = $"\t{snailAnswer}\n";
+                if (homework.Count > 1)
                 {
                     foreach (var num in homework.Skip(1))
                     {
                         solve += $"+\t{num}\n";
-                        result += num;
-                        solve += $"=\t{result}\n";
+                        snailAnswer += num;
+                        solve += $"=\t{snailAnswer}\n";
                     }
                 }
-                mag = result.Magnitude();
+                mag = snailAnswer.Magnitude();
             }
 
             if (TestMode || WithLogging)
@@ -53,21 +53,21 @@ namespace AdventOfCode2021.Puzzles
         public override void Part2(bool TestMode)
         {
             var numbers = Data.Snailfish.SnailfishNumbers;
-            var homework = new List<Node>();
+            var homework = new List<SnailNum>();
             foreach (var num in numbers)
-                homework.Add(num.GetNode());
+                homework.Add(num.GetSnailfishNumber());
 
             long maxMag = 0;
             if (homework.Any())
             {
-                for(int i = 0; i < homework.Count; i++)
+                for (int i = 0; i < homework.Count; i++)
                 {
-                    for(int j=0; j < homework.Count; j++)
+                    for (int j = 0; j < homework.Count; j++)
                     {
                         if (i != j)
                         {
-                            var node = homework[i] + homework[j];
-                            maxMag = Math.Max(maxMag,node.Magnitude());
+                            var SnailfishNumber = homework[i] + homework[j];
+                            maxMag = Math.Max(maxMag, SnailfishNumber.Magnitude());
                         }
                     }
                 }
@@ -76,205 +76,210 @@ namespace AdventOfCode2021.Puzzles
             Part2Result = $"MaxMag= {maxMag}";
         }
 
-        public class Node
+        public class SnailNum
         {
-            public Node? Parent { get; set; }
-            public Node? X { get; set; } = null;
-            public Node? Y { get; set; } = null;
+            public SnailNum? Parent { get; set; }
+            public SnailNum? X { get; set; } = null;
+            public SnailNum? Y { get; set; } = null;
             public long? Value { get; set; }
 
-            public Node() { }
-            public Node(Node parent, object value)
+            public SnailNum() { }
+            public SnailNum(object value)
+                : this(null, value) { }
+            public SnailNum(SnailNum parent, object value)
             {
                 this.Parent = parent;
-                if (value != null && value is Int64)
+                if (value != null &&
+                    value is Int64)
                 {
                     this.Value = (long)value;
                     this.X = null;
                     this.Y = null;
                 }
-                else if (value != null && ((JToken)value).Type == JTokenType.Integer)
+                else if (value != null &&
+                         value is JToken jToken &&
+                         jToken.Type == JTokenType.Integer)
                 {
-                    this.Value = ((JToken)value).ToObject<int>();
+                    this.Value = jToken.ToObject<int>();
                     this.X = null;
                     this.Y = null;
                 }
-                else if (value != null && value is JArray)
+                else if (value != null &&
+                         value is JArray jArray)
                 {
                     this.Value = null;
-                    var v = ((JArray)value).Children().ToArray();
-                    this.X = new Node(this, v[0]);
-                    this.Y = new Node(this, v[1]);
-                }
-                else
-                {
-                    this.Value = null;
-                    this.X = null;
-                    this.Y = null;
+                    var v = jArray.Children().ToArray();
+                    this.X = new SnailNum(this, v[0]);
+                    this.Y = new SnailNum(this, v[1]);
                 }
             }
             public override string ToString()
             {
-                if (Value.HasValue)
-                    return Value.ToString();
+                return Value.HasValue
+                        ? Value.ToString()
+                        : $"[{X},{Y}]";
 
-                return $"[{X},{Y}]";
             }
-            public static Node operator +(Node a, Node b)
+            public static SnailNum operator +(SnailNum a, SnailNum b)
             {
-                var node = new Node(null, null);
-                node.X = a.Copy();
-                node.Y = b.Copy();
-                node.X.Parent = node;
-                node.Y.Parent = node;
-                node.Reduce();
-                return node;
-            }
+                var num = new SnailNum
+                {
+                    X = a.Copy(),
+                    Y = b.Copy()
+                };
 
+                num.X.Parent = num;
+                num.Y.Parent = num;
+                num.Reduce();
+
+                return num;
+            }
         }
     }
-    public static class NodeExtensions
+    public static class SnailfishNumberExtensions
     {
-        public static Node GetNode(this string SnailfishNumber)
+        public static SnailNum GetSnailfishNumber(this string SnailfishNumber)
         {
-            return new Node(null, SnailfishNumber.FromJson<object>());
+            return new SnailNum(SnailfishNumber.FromJson<object>());
         }
-        public static Node Previous(this Node node)
+        public static SnailNum Previous(this SnailNum num)
         {
-            if (node.Parent == null)
+            if (num.Parent == null)
                 return null;
 
-            if (node == node.Parent.X)
-                return node.Parent.Previous();
+            if (num == num.Parent.X)
+                return num.Parent.Previous();
 
-            var result = node.Parent.X;
-            while (result.Y != null)
+            var result = num.Parent.X;
+            while (result?.Y != null)
                 result = result.Y;
 
             return result;
         }
-        public static Node Next(this Node node)
+        public static SnailNum Next(this SnailNum num)
         {
-            if (node.Parent == null)
+            if (num.Parent == null)
                 return null;
 
-            if (node == node.Parent.Y)
-                return node.Parent.Next();
+            if (num == num.Parent.Y)
+                return num.Parent.Next();
 
-            var result = node.Parent.Y;
-            while (result.X != null)
+            var result = num.Parent.Y;
+            while (result?.X != null)
                 result = result.X;
             return result;
         }
-        public static long Magnitude(this Node node)
+        public static long Magnitude(this SnailNum num)
         {
-            if (node.Value != null)
-                return (long)node.Value;
-
-            return 3 * node.X.Magnitude() + 2 * node.Y.Magnitude();
+            if (num.Value != null)
+                return (long)num.Value;
+            else if (num != null)
+                return 3 * num.X.Magnitude() + 2 * num.Y.Magnitude();
+            else
+                return 0;
         }
-        public static Node Copy(this Node node)
+        public static SnailNum Copy(this SnailNum num)
         {
-            var n = new Node(null, null)
+            var n = new SnailNum()
             {
-                Value = node.Value
+                Value = num.Value
             };
 
-            if (node.X != null)
+            if (num.X != null)
             {
-                n.X = node.X.Copy();
+                n.X = num.X.Copy();
                 n.X.Parent = n;
             }
 
-            if (node.Y != null)
+            if (num.Y != null)
             {
-                n.Y = node.Y.Copy();
+                n.Y = num.Y.Copy();
                 n.Y.Parent = n;
             }
 
             return n;
         }
-        public static void Explode(this Node node)
+        public static void Explode(this SnailNum num)
         {
-            var xVal = node.X?.Value;
-            var yVal = node.Y?.Value;
+            var xVal = num.X?.Value;
+            var yVal = num.Y?.Value;
 
-            var xNode = node.Previous();
-            if (xNode != null)
+            var xNum = num.Previous();
+            if (xNum != null)
             {
-                if (xNode.Value == null)
-                    throw new NullReferenceException("Expected Node.Value, but it was null");
+                if (xNum.Value == null)
+                    throw new NullReferenceException("Expected SnailNum.Value, but it was null");
 
-                xNode.Value += xVal;
+                xNum.Value += xVal;
             }
 
-            var yNode = node.Next();
-            if (yNode != null)
+            var yNum = num.Next();
+            if (yNum != null)
             {
-                if (yNode.Value == null)
-                    throw new NullReferenceException("Expected Node.Value, but it was null");
+                if (yNum.Value == null)
+                    throw new NullReferenceException("Expected SnailNum.Value, but it was null");
 
-                yNode.Value += yVal;
+                yNum.Value += yVal;
             }
 
-            node.Value = 0;
-            node.X = null;
-            node.Y = null;
+            num.Value = 0;
+            num.X = null;
+            num.Y = null;
         }
-        public static void Split(this Node node)
+        public static void Split(this SnailNum num)
         {
-            var xVal = node.Value / 2;
-            var yVal = node.Value - xVal;
-            node.Value = null;
-            node.X = new Node(node, xVal);
-            node.Y = new Node(node, yVal);
+            var xVal = num.Value / 2;
+            var yVal = num.Value - xVal;
+            num.Value = null;
+            num.X = new SnailNum(num, xVal);
+            num.Y = new SnailNum(num, yVal);
         }
-        public static void Reduce(this Node node)
+        public static void Reduce(this SnailNum num)
         {
             bool isChanged = false;
 
-            void CheckExplosion(Node node, int depth)
+            void CheckExplosion(SnailNum num, int depth)
             {
-                if (node == null || isChanged)
+                if (num == null || isChanged)
                     return;
 
-                if (depth >= 4 && node.X != null && node.X.Value != null)
+                if (depth >= 4 && num.X != null && num.X.Value != null)
                 {
-                    node.Explode();
+                    num.Explode();
                     isChanged = true;
                     return;
                 }
 
-                CheckExplosion(node.X, depth + 1);
-                CheckExplosion(node.Y, depth + 1);
+                CheckExplosion(num.X, depth + 1);
+                CheckExplosion(num.Y, depth + 1);
             }
 
-            void CheckSplit(Node node)
+            void CheckSplit(SnailNum num)
             {
-                if (node == null || isChanged)
+                if (num == null || isChanged)
                     return;
 
-                if (node.Value != null && node.Value >= 10)
+                if (num.Value != null && num.Value >= 10)
                 {
-                    node.Split();
+                    num.Split();
                     isChanged = true;
                     return;
                 }
 
-                CheckSplit(node.X);
-                CheckSplit(node.Y);
+                CheckSplit(num.X);
+                CheckSplit(num.Y);
             }
 
-            CheckExplosion(node, 0);
+            CheckExplosion(num, 0);
             if (isChanged)
             {
-                node.Reduce();
+                num.Reduce();
                 return;
             }
 
-            CheckSplit(node);
+            CheckSplit(num);
             if (isChanged)
-                node.Reduce();
+                num.Reduce();
         }
     }
 }
