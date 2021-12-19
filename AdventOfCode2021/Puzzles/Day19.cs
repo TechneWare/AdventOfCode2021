@@ -18,17 +18,35 @@ namespace AdventOfCode2021.Puzzles
         public override void Part1(bool TestMode)
         {
             Data.BeaconScanner.LoadData(TestMode);
+
             var scanners = Data.BeaconScanner.DataRaw.ReadScanners();
+            
+            List<(int x, int y, int z)> offsets;
+            List<(int x, int y, int z)>? result = GetBeacons(scanners, out offsets);
+            Part1Result = $"Num Beacons= {result.Count}";
+
+            int max = offsets.GetMaxDistance();
+            Part2Result = $"Max Dist = {max}";
+        }
+
+
+        public override void Part2(bool TestMode)
+        { 
+            //Completed on part1, just let result displayed
+        }
+        private static List<(int x, int y, int z)> GetBeacons(List<List<(int x, int y, int z)>> scanners,
+                                                              out List<(int x, int y, int z)> offsets)
+        {
             var result = new List<(int x, int y, int z)>();
-            var offsets = new List<(int x, int y, int z)>();
+            var offs = new List<(int x, int y, int z)>();
             var visited = new List<int>();
 
-            void SearchBeacons(int i, List<(int x, int y, int z)> beacons, (int x, int y, int z) offset)
+            void SearchBeacons(int i,
+                               List<(int x, int y, int z)> beacons,
+                               (int x, int y, int z) offset)
             {
                 result?.AddRange(beacons.Except(result));
-                offsets?.Add(offset);
-                result = result.Distinct().ToList();
-
+                offs?.Add(offset);
                 visited?.Add(i);
 
                 foreach (var scanner in scanners)
@@ -44,43 +62,9 @@ namespace AdventOfCode2021.Puzzles
             }
 
             SearchBeacons(0, scanners[0], (x: 0, y: 0, z: 0));
+            offsets = offs;
 
-            Part1Result = $"Num Beacons= {result.Count}";
-        }
-
-        public override void Part2(bool TestMode)
-        {
-            Data.BeaconScanner.LoadData(TestMode);
-            var scanners = Data.BeaconScanner.DataRaw.ReadScanners();
-            var result = new List<(int x, int y, int z)>();
-            var offsets = new List<(int x, int y, int z)>();
-            var visited = new List<int>();
-
-            void SearchBeacons(int i, List<(int x, int y, int z)> beacons, (int x, int y, int z) offset)
-            {
-                result?.AddRange(beacons.Except(result));
-                offsets?.Add(offset);
-                result = result.Distinct().ToList();
-
-                visited?.Add(i);
-
-                foreach (var scanner in scanners)
-                {
-                    i = scanners.IndexOf(scanner);
-                    if (visited.Contains(i))
-                        continue;
-
-                    var match = beacons.GetMatches(scanner, out (int x, int y, int z) off);
-                    if (match != null)
-                        SearchBeacons(i, match, off);
-                }
-            }
-
-            SearchBeacons(0, scanners[0], (x: 0, y: 0, z: 0));
-
-            int max = offsets.GetMaxDistance();
-
-            Part2Result = $"Max Dist = {max}";
+            return result;
         }
     }
 
@@ -96,7 +80,8 @@ namespace AdventOfCode2021.Puzzles
 
             return product;
         }
-        private static (int x, int y, int z) Rotate((int x, int y, int z) point, (int rx, int ry, int rz) rotation)
+        private static (int x, int y, int z) Rotate((int x, int y, int z) point, 
+                                                    (int rx, int ry, int rz) rotation)
         {
             (int x, int y, int z) p = new(point.x, point.y, point.z);
 
