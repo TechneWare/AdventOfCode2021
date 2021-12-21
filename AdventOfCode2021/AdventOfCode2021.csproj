@@ -74,6 +74,12 @@
     <None Update="Data\Files\OctopusInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Files\TrenchMapTestInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Files\TrenchMapInput.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\Files\SyntaxTestInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
