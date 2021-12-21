@@ -102,7 +102,7 @@ namespace AdventOfCode2021.Puzzles
         /// </summary>
         /// <param name="alg">Algorithim to test</param>
         /// <param name="defValue">The currennt default value</param>
-        /// <returns></returns>
+        /// <returns>boolean indicating the proper default value</returns>
         private static bool GetDefaultValue(this List<bool> alg, bool defValue)
         {
             //Test to see what the default value should be for the given algorithim
