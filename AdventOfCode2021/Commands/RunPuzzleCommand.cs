@@ -14,7 +14,7 @@ namespace AdventOfCode2021.Commands
 
         public string[] CommandAlternates => new string[] { "day", "show" };
 
-        public string Description => "Run a Puzzle:";
+        public string Description => "Run a Puzzle ([day number] by itself will run that day)";
 
         public double DayNumber { get; set; } = 0;
         public string arg { get; set; } = "";

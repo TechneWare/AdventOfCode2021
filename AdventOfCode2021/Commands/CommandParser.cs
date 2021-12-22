@@ -23,6 +23,11 @@ namespace AdventOfCode2021.Commands
             if (command == null)
                 return new NotFoundCommand { Name = requestedCommand };
 
+            if (command is RunPuzzleCommand && double.TryParse(args[0], out double dayNum))
+            {
+                args = new string[2] { "runpuzzle", $"{dayNum}" };
+            }
+
             return command.MakeCommand(args);
         }
 
@@ -33,6 +38,11 @@ namespace AdventOfCode2021.Commands
                         c.CommandName.ToLower().StartsWith(requestedCommand.ToLower())
                         || c.CommandAlternates.Any(ca => ca.ToLower().StartsWith(requestedCommand.ToLower())));
 
+            if (!matched.Any() && double.TryParse(requestedCommand, out double dayNum))
+            {
+                matched = commands.Where(c => c.CommandName.ToLower().StartsWith("runpuzzle"));
+            }
+
             if (matched.Any())
             {
                 if (matched.Count() == 1)
@@ -41,9 +51,9 @@ namespace AdventOfCode2021.Commands
                 {
                     var msg = "Please Be More Specific." +
                               "\nDid you mean one of these?";
-                    foreach(var c in matched)
+                    foreach (var c in matched)
                         msg += $"\n{c.CommandName.PadRight(25)}-{c.Description}";
-                    
+
                     cmd = new BadCommand(msg);
                 }
             }

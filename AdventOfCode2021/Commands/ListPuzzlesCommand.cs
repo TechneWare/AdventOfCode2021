@@ -8,7 +8,7 @@ namespace AdventOfCode2021.Commands
 {
     public class ListPuzzlesCommand : ICommand, ICommandFactory
     {
-        public string CommandName => "ListPuzzles";
+        public string CommandName => "List";
 
         public string CommandArgs =>"";
 
