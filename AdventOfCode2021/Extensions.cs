@@ -26,7 +26,7 @@ namespace AdventOfCode2021
             return JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings { MaxDepth = null });
         }
 
-        public static T? Clone<T>(this T obj)
+        public static T Clone<T>(this T obj)
         {
             if (obj == null)
                 return obj;
